@@ -16,8 +16,8 @@ QueMenges es una aplicación que permite a los usuarios acceder a platos y menú
 
 ## Enlaces
 
-- **Repositorio GitHub:** [https://github.com/AndresVT24/ES23UAB-411-5.git](https://github.com/)
-- **Tablero Trello Sprint 1:** [https://trello.com/invite/b/69ae97660cac6192cb308e1f/ATTI7931aba368e57c99e1eeca0c420fab20EFE99341/es](https://trello.com/)
+- **Repositorio GitHub:** [https://github.com/AndresVT24/ES23UAB-411-5.git](https://github.com/AndresVT24/ES23UAB-411-5.git)
+- **Tablero Trello Sprint 1:** [https://trello.com](https://trello.com/invite/b/69ae97660cac6192cb308e1f/ATTI7931aba368e57c99e1eeca0c420fab20EFE99341/es)
 
 ## Descripción del proyecto
 
