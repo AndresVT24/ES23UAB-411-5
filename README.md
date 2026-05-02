@@ -6,13 +6,12 @@ QueMenges es una aplicación que permite a los usuarios acceder a platos y menú
 
 ## Equipo
 
-- **Grupo:** ES23UAB-XXX-YY
+- **Grupo:** ES23UAB-411-5
 - **Miembros:**
   - Eloy Rota Vilchez
   - Chenyu Weng
   - Jennifer D. Martínez Cedillo
   - Erik Andres Villca Tunari
-- **Supervisor/a:** Nombre del tutor o tutora
 
 ## Enlaces
 
@@ -21,7 +20,7 @@ QueMenges es una aplicación que permite a los usuarios acceder a platos y menú
 
 ## Descripción del proyecto
 
-QueMenges es una plataforma orientada al área metropolitana de Barcelona que conecta a clientes con cocineros particulares y repartidores.
+QueMenges es una plataforma que conecta a clientes con cocineros particulares y repartidores.
 
 La aplicación contempla, entre otras, las siguientes funcionalidades:
 
