@@ -1,0 +1,17 @@
+@startuml
+(Publicar plat) as PP
+(Publicar menú) as PM
+(Indicar horari disponibilitat) as IHD
+(Xatejar client-cuiner) as CHA
+(Modificar perfil) as MP
+(Acceptar proposta) as AP
+
+
+Cuiner --> PP
+Cuiner --> PM
+Cuiner --> IHD
+Cuiner --> CHA
+Cuiner --> MP
+Cuiner --> AP
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+actor "Client" as Client
+
+(Consultar menús) as CM
+(Consultar plats) as CP
+(Cercar plats) as CE
+(Consultar cuiners) as CC
+(Fer comanda) as FC
+(Reservar comanda) as RC
+(Pagar comanda) as PC
+(Escollir entrega) as EE
+(Seguir enviament) as SE
+(Consultar historial) as CH
+(Repetir comanda) as RE
+(Valorar comanda) as VC
+(Proposar plat) as PP
+(Xatejar amb cuiner) as XC
+(Gestionar subscripció) as GS
+(Usar punts) as UP
+
+(Consultar ingredients) as CI
+(Consultar al·lèrgens) as CA
+(Eliminar ingredients opcionals) as EIO
+(Comprovar màxim 3 comandes) as CMC
+(Autenticar pagament) as AP
+(Mostrar Google Maps) as GM
+(Acceptació del cuiner) as AC
+
+Client --> CM
+Client --> CP
+Client --> CE
+Client --> CC
+Client --> FC
+Client --> RC
+Client --> PC
+Client --> EE
+Client --> SE
+Client --> CH
+Client --> RE
+Client --> VC
+Client --> PP
+Client --> XC
+Client --> GS
+Client --> UP
+
+CP ..> CI : <<include>>
+CP ..> CA : <<include>>
+FC ..> EIO : <<include>>
+FC ..> CMC : <<include>>
+PC ..> AP : <<include>>
+SE ..> GM : <<include>>
+PP ..> AC : <<include>>
+XC ..> AC : <<extend>>
+@enduml

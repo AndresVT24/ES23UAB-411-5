@@ -1,0 +1,24 @@
+@startuml
+
+(Registrar-se) as RS
+(Fer comanda) as FC
+(Comprovar registre) as CR
+(Crear Perfil) as CP
+(Indicar Tipus Perfil) as ITP
+(Modificar Perfil) as MP
+(Donar-se de baixa) as DB
+(Eliminar perfils) as EP
+(Canviar idioma) as CI
+
+Usuari --> FC
+Usuari --> RS
+Usuari --> CP
+Usuari --> MP
+Usuari --> CI
+
+Usuari --> DB
+
+FC .down.> CR : <<include>>
+CP .down.> ITP : <<include>>
+DB .down.> EP : <<include>>
+@enduml
