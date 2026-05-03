@@ -1,0 +1,38 @@
+@startuml
+actor "Repartidor" as Repartidor
+actor "Google Maps" as Maps
+actor "Sistema de pagaments" as Pagaments
+
+rectangle "QueMenges - Gestió d'entregues" {
+
+  usecase "Iniciar sessió" as UC_Login
+  usecase "Gestionar perfil\nde repartidor" as UC_Perfil
+  usecase "Consultar entregues\ndisponibles" as UC_Consultar
+  usecase "Acceptar entrega" as UC_Acceptar
+  usecase "Consultar dades\nde l'entrega" as UC_Dades
+  usecase "Iniciar enviament" as UC_Iniciar
+  usecase "Actualitzar estat\nde l'enviament" as UC_Estat
+  usecase "Compartir ubicació\nactual" as UC_Ubicacio
+  usecase "Finalitzar entrega" as UC_Finalitzar
+  usecase "Confirmar entrega" as UC_Confirmar
+  usecase "Rebre ingrés\nper l'entrega" as UC_Ingres
+}
+
+Repartidor --> UC_Login
+Repartidor --> UC_Perfil
+Repartidor --> UC_Consultar
+Repartidor --> UC_Acceptar
+Repartidor --> UC_Iniciar
+Repartidor --> UC_Estat
+Repartidor --> UC_Finalitzar
+
+UC_Acceptar ..> UC_Dades : <<include>>
+UC_Iniciar ..> UC_Ubicacio : <<include>>
+UC_Estat ..> UC_Ubicacio : <<include>>
+UC_Finalitzar ..> UC_Confirmar : <<include>>
+UC_Finalitzar ..> UC_Ingres : <<include>>
+
+Maps --> UC_Ubicacio
+Pagaments --> UC_Ingres
+
+@enduml
