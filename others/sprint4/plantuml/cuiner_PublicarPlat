@@ -1,0 +1,18 @@
+@startuml
+actor Cuiner
+boundary "Interficie Cuiner" as IC
+control "Gestor Cuiner" as GC
+entity Plat
+entity DadesCuiner
+
+
+Cuiner -> IC : CrearPlat(DadesPlat)
+IC -> GC : CrearPlat(DadesPlat)
+GC -> Plat : CrearPlat(DadesPlat)
+Plat --> GC
+Cuiner -> IC : PublicarPlat()
+IC -> GC : PublicarPlat()
+GC -> DadesCuiner : ActualitzarPlats()
+GC -> IC : Confirmacio()
+
+@enduml

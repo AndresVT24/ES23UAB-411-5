@@ -1,0 +1,14 @@
+@startuml
+actor Cuiner
+boundary "Interficie Cuiner" as IC
+control "Gestor Cuiner" as GC
+entity DadesCuiner
+
+Cuiner -> IC : IndicarHorari(DadesHorari)
+IC -> GC : IndicarHorari(DadesHorari)
+Cuiner -> IC : GuardarCanvis()
+IC -> GC : GuardarCanvis()
+GC -> DadesCuiner : ActualitzarHorari()
+GC -> IC : Confirmacio()
+
+@enduml

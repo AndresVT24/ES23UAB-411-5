@@ -1,0 +1,40 @@
+@startuml
+
+actor Client
+
+boundary "InterficieClient" as UI
+control "ControlComanda" as CC
+entity "Plat" as P
+entity "Comanda" as C
+
+Client -> UI : Consultar plats
+
+UI -> CC : obtenirPlats()
+
+CC -> P : consultarPlatsDisponibles()
+P --> CC : llistaPlats
+
+CC --> UI : mostrarPlats()
+
+Client -> UI : Seleccionar plats
+
+UI -> CC : crearComanda()
+
+CC -> C : comprovarComandesActives()
+
+alt Menys de 3 comandes actives
+
+    CC -> C : registrarComanda()
+    C --> CC : confirmació
+
+    CC --> UI : comandaCreada()
+
+else 3 comandes actives
+
+    CC --> UI : error()
+
+end
+
+UI --> Client : Mostrar resultat
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+
+class dadesClient
+class HistorialComandes
+class dadesCuiner
+class ProgramaPunts
+class Comanda
+class PropostaPlat
+class Menu
+class Xat
+class Pagament
+class Entrega
+class dadesRepartidor
+class Plat
+class Missatge
+class Ingredient
+
+dadesClient -- HistorialComandes
+dadesClient -- Comanda
+dadesClient -- PropostaPlat
+dadesClient -- ProgramaPunts
+dadesClient -- Xat
+
+HistorialComandes -- Comanda
+
+dadesCuiner -- Comanda
+dadesCuiner -- PropostaPlat
+dadesCuiner -- Plat
+dadesCuiner -- Xat
+
+Comanda -- Pagament
+Comanda -- Entrega
+Comanda -- Plat
+
+Entrega -- dadesRepartidor
+
+PropostaPlat -- Plat
+
+Menu o-- Plat
+Xat o-- Missatge
+Plat o-- Ingredient
+
+@enduml

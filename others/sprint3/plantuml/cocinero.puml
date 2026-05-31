@@ -1,0 +1,20 @@
+@startuml
+class Plat
+class Menu
+class dadesCuiner
+class Comanda
+class Ingredient
+class dadesUsuari
+class dadesClient
+class Xat
+
+Menu "n" o-- "n" Plat
+Xat "n" -left- "n" dadesClient
+Xat "n" -right- "n" dadesCuiner
+dadesClient "1" -- "0-3" Comanda
+dadesCuiner "1" -- "n" Comanda
+Plat "n" -- "n" dadesCuiner
+Plat "n" o-- "n" Ingredient
+dadesUsuari <|-- dadesClient
+dadesUsuari <|-- dadesCuiner
+@enduml

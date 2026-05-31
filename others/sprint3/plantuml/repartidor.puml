@@ -1,0 +1,29 @@
+@startuml
+
+class dadesUsuari
+class dadesClient
+class dadesCuiner
+class dadesRepartidor
+class Comanda
+class HistorialEntregues
+class Entrega
+class SeguimentUbicacio
+class EstatEnviament
+
+dadesUsuari <|-- dadesClient
+dadesUsuari <|-- dadesCuiner
+dadesUsuari <|-- dadesRepartidor
+
+dadesClient "1" -- "0..*" Comanda
+dadesCuiner "1" -- "0..*" Comanda
+
+dadesRepartidor "1" -- "0..*" HistorialEntregues
+dadesRepartidor "1" -- "0..*" Entrega
+
+Comanda "1" -- "0..1" Entrega
+HistorialEntregues "1" -- "0..*" Entrega
+
+Entrega "1" -- "0..*" SeguimentUbicacio
+Entrega "1" -- "1" EstatEnviament
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+class dadesUsuariNoRegistrat 
+class dadesUsuari
+class dadesClient
+class dadesRepartidor
+class dadesCuiner
+class sistemaPagament
+
+dadesUsuariNoRegistrat <|-- dadesUsuari
+dadesUsuari <|-- dadesClient
+dadesUsuari <|-- dadesCuiner
+dadesUsuari <|-- dadesRepartidor
+dadesUsuari -left- sistemaPagament
+
+@enduml
