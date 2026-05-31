@@ -1,0 +1,23 @@
+@startuml
+title Consultar Entregues Disponibles
+
+actor Repartidor
+
+boundary "Interficie Repartidor" as Interficie
+control "Gestor Repartidor" as Gestor
+entity "Entrega" as Entrega
+entity "DadesRepartidor" as DadesRepartidor
+
+Repartidor -> Interficie : ConsultarEntreguesDisponibles()
+Interficie -> Gestor : ConsultarEntreguesDisponibles()
+
+Gestor -> DadesRepartidor : ConsultarDadesRepartidor()
+DadesRepartidor --> Gestor
+
+Gestor -> Entrega : CercarEntreguesDisponibles()
+Entrega --> Gestor
+
+Gestor --> Interficie : LlistaEntreguesDisponibles()
+Interficie --> Repartidor : MostrarEntreguesDisponibles()
+
+@enduml
