@@ -1,0 +1,105 @@
+@startuml
+left to right direction
+
+(Publicar plat) as PP
+(Publicar menú) as PM
+(Indicar horari disponibilitat) as IHD
+(Xatejar client-cuiner) as CHA
+(Acceptar proposta) as AP
+
+
+Cuiner --> PP
+Cuiner --> PM
+Cuiner --> IHD
+Cuiner --> CHA
+Cuiner --> AP
+
+(Consultar Cuiners) as CC
+(Fer comanda) as FC
+(Eliminar ingredients opcionals) as EIO
+(Comprovar maxim 3 comandes) as CM3
+(Reservar Comanda) as REC
+(Pagar Comanda) as PG
+(Escollir tipus entrega) as ETE
+(Consultar Historial) as CHI
+(Repetir Comanda) as RCO
+(Valorar Comanda) as VC
+(Proposar Plat) as PRP
+(Gestionar subscripció) as GSU
+
+Client --> CC
+Client --> FC
+CC --> Cuiner
+FC --> Cuiner
+Client --> PG
+PG --> Cuiner
+Client --> CHI
+Client --> PRP
+Client --> GSU
+
+VC .> FC <<extend>>
+CHA .> PRP : <<extend>>
+FC .> EIO : <<include>>
+FC .> CM3 : <<include>>
+REC .> FC : <<extend>>
+RCO .> FC : <<extend>>
+FC .> ETE : <<include>>
+
+actor "Repartidor" as Repartidor
+actor "Google Maps" as Maps
+actor "Sistema de pagaments" as Pagaments
+
+rectangle "QueMenges - Gestió d'entregues" {
+  usecase "Gestionar perfil\nde repartidor" as UC_Perfil
+  usecase "Consultar entregues\ndisponibles" as UC_Consultar
+  usecase "Entrega" as UC_Entrega
+  usecase "Consultar dades\nde l'entrega" as UC_Dades
+  usecase "Actualitzar estat\nde l'enviament" as UC_Estat
+  usecase "Seguiment ubicació" as UC_Ubicacio
+  usecase "Consultar Historial Entregues" as UC_Historial
+}
+
+Repartidor --> UC_Perfil
+Repartidor --> UC_Consultar
+Repartidor --> UC_Entrega
+Repartidor --> UC_Dades
+Client --> UC_Ubicacio
+PG --> Repartidor
+Repartidor --> UC_Historial
+Repartidor --> UC_Estat
+UC_Entrega ..> UC_Ubicacio : <<include>>
+
+UC_Ubicacio --> Maps
+PG --> Pagaments
+
+rectangle "QueMenges -  Funcions Generals" {
+  (Registrar-se) as RS
+  (Crear Perfil) as CP
+  (Indicar Tipus Perfil) as ITP
+  (Modificar Perfil) as MP
+  (Donar-se de baixa) as DB
+  (Eliminar perfils) as EP
+  (Canviar idioma) as CI
+  (Consultar Plats/Menus) as CPLM
+  (Consultar Ingredients/Alèrgens) as CIA
+}
+
+actor "Usuari No Registrat" as UsuariNR
+
+Usuari --> CP
+Usuari --> MP
+Usuari --> DB
+
+CP ..> ITP : <<include>>
+DB ..> EP : <<include>>
+
+Usuari <|-- Cuiner
+Usuari <|-- Client
+Usuari <|-- Repartidor
+UsuariNR <|-- Usuari
+CPLM ..> CIA : <<include>>
+
+UsuariNR --> CI
+UsuariNR --> RS
+UsuariNR --> CPLM
+@enduml

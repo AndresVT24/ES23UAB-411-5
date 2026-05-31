@@ -1,0 +1,28 @@
+@startuml
+actor Usuari
+boundary "Interficie Usuari" as IU
+control "Gestor Usuari" as GU
+entity DadesUsuari
+entity DadesClient
+entity DadesCuiner
+entity DadesRepartidor
+
+Usuari -> IU : CrearPerfil(DadesPerfil)
+IU -> GU : CrearPerfil(DadesPerfil)
+GU -> DadesUsuari : CrearPerfil(DadesPerfil)
+DadesUsuari --> GU
+
+alt Crear Client
+    GU -> DadesClient : CrearClient(DadesPerfil)
+
+else Crear Cuiner
+    GU -> DadesCuiner : CrearCuiner(DadesPerfil)
+
+else Crear Repartidor
+    GU -> DadesRepartidor : CrearReoartidor(DadesPerfil)
+
+    
+end
+
+GU -> IU : Confirmacio()
+@enduml

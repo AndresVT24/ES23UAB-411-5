@@ -1,0 +1,15 @@
+@startuml
+actor Usuari
+boundary "Interficie Usuari" as IU
+control "Gestor Usuari" as GU
+entity DadesUsuari
+
+Usuari -> IU : ModificarPerfil(DadesPerfil)
+IU -> GU : ModificarPerfil(DadesPerfil)
+
+Usuari -> IU : ConfirmarCanvis()
+IU -> GU :  : ConfirmarCanvis()
+GU -> DadesUsuari : GuardarCanvis(DadesPerfil)
+GU -> IU : Confirmacio()
+
+@enduml

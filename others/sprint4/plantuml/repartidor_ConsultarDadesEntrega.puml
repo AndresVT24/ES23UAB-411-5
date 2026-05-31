@@ -1,0 +1,27 @@
+@startuml
+title CU: Consultar Dades Entrega
+
+actor Repartidor
+
+boundary "Interficie Repartidor" as Interficie
+control "Gestor Repartidor" as Gestor
+entity "Entrega" as Entrega
+entity "Comanda" as Comanda
+entity "EstatEnviament" as EstatEnviament
+
+Repartidor -> Interficie : SeleccionarEntrega()
+Interficie -> Gestor : ConsultarDadesEntrega()
+
+Gestor -> Entrega : ConsultarDadesEntrega()
+Entrega --> Gestor : DadesEntrega()
+
+Gestor -> Comanda : ConsultarDadesComanda()
+Comanda --> Gestor : DadesComanda()
+
+Gestor -> EstatEnviament : ConsultarEstatActual()
+EstatEnviament --> Gestor : EstatActual()
+
+Gestor --> Interficie : DadesEntrega()
+Interficie --> Repartidor : MostrarDadesEntrega()
+
+@enduml

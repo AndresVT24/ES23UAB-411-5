@@ -18,6 +18,18 @@ class Plat
 class Missatge
 class Ingredient
 
+class GestorClient
+class GestorCuiner
+class GestorRepartidor
+class GestorUsuari
+class GestorUsuariNoRegistrat
+
+class InterficieClient
+class InterficieCuiner
+class InterficieRepartidor
+class InterficieUsuari
+class InterficieUsuariNoRegistrat
+
 class HistorialEntregues
 class SeguimentUbicacio
 class EstatEnviament
@@ -57,12 +69,25 @@ Plat "n" o-- "n" Ingredient
 Xat o-- Missatge
 
 ' Repartidor / Entregues
-dadesRepartidor "1" -- "0..*" Entrega
 dadesRepartidor "1" -- "0..*" HistorialEntregues
 
 HistorialEntregues "1" -- "0..*" Entrega
 
 Entrega "1" -- "0..*" SeguimentUbicacio
 Entrega "1" -- "1" EstatEnviament
+
+' Gestor
+GestorClient -- dadesClient
+GestorCuiner -- dadesCuiner
+GestorRepartidor -- dadesRepartidor
+GestorUsuari -- dadesUsuari
+GestorUsuariNoRegistrat -- dadesUsuariNoRegistrat
+
+' Interficie
+InterficieClient -- GestorClient
+InterficieCuiner -- GestorCuiner
+InterficieRepartidor -- GestorRepartidor
+InterficieUsuari -- GestorUsuari
+InterficieUsuariNoRegistrat -- GestorUsuariNoRegistrat
 
 @enduml

@@ -34,11 +34,11 @@ FC --> Cuiner
 Client --> PG
 PG --> Cuiner
 Client --> CHI
-Client --> VC
 Client --> PRP
-Client --> CHA
 Client --> GSU
 
+VC .> FC <<extend>>
+CHA .> PRP : <<extend>>
 FC .> EIO : <<include>>
 FC .> CM3 : <<include>>
 REC .> FC : <<extend>>

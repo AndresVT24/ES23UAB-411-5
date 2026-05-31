@@ -1,0 +1,55 @@
+@startuml
+title CU: Entrega
+
+actor Repartidor
+
+boundary "Interficie Repartidor" as Interficie
+control "Gestor Repartidor" as Gestor
+entity "Entrega" as Entrega
+entity "Comanda" as Comanda
+entity "SeguimentUbicacio" as SeguimentUbicacio
+entity "EstatEnviament" as EstatEnviament
+
+Repartidor -> Interficie : ConsultarDadesEntrega()
+Interficie -> Gestor : ConsultarDadesEntrega()
+
+Gestor -> Entrega : ObtenirDadesEntrega()
+Entrega --> Gestor : DadesEntrega()
+
+Gestor -> Comanda : ConsultarDadesComanda()
+Comanda --> Gestor : DadesComanda()
+
+Gestor --> Interficie : MostrarDadesEntrega()
+Interficie --> Repartidor : DadesEntrega()
+
+Repartidor -> Interficie : RecollirComanda()
+Interficie -> Gestor : RecollirComanda()
+
+Gestor -> EstatEnviament : ActualitzarEstat()
+EstatEnviament --> Gestor
+
+Gestor -> SeguimentUbicacio : IniciarSeguiment()
+SeguimentUbicacio --> Gestor
+
+Repartidor -> Interficie : PortarComandaClient()
+Interficie -> Gestor : CompartirUbicacio()
+
+Gestor -> SeguimentUbicacio : ActualitzarUbicacio()
+SeguimentUbicacio --> Gestor
+
+Repartidor -> Interficie : ConfirmarEntrega()
+Interficie -> Gestor : ConfirmarEntrega()
+
+Gestor -> Entrega : FinalitzarEntrega()
+Entrega --> Gestor
+
+Gestor -> EstatEnviament : MarcarEntregada()
+EstatEnviament --> Gestor
+
+Gestor -> Comanda : MarcarComandaEntregada()
+Comanda --> Gestor
+
+Gestor --> Interficie : Confirmacio()
+Interficie --> Repartidor : Confirmacio()
+
+@enduml
