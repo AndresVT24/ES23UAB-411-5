@@ -1,0 +1,68 @@
+@startuml
+
+class dadesUsuariNoRegistrat
+class dadesUsuari
+class dadesClient
+class dadesCuiner
+class dadesRepartidor
+
+class HistorialComandes
+class ProgramaPunts
+class Comanda
+class PropostaPlat
+class Menu
+class Xat
+class Pagament
+class Entrega
+class Plat
+class Missatge
+class Ingredient
+
+class HistorialEntregues
+class SeguimentUbicacio
+class EstatEnviament
+
+' Herencia de usuarios
+dadesUsuariNoRegistrat <|-- dadesUsuari
+dadesUsuari <|-- dadesClient
+dadesUsuari <|-- dadesCuiner
+dadesUsuari <|-- dadesRepartidor
+
+' Cliente
+dadesClient -- HistorialComandes
+dadesClient -- ProgramaPunts
+dadesClient -- PropostaPlat
+dadesClient "1" -- "0..*" Comanda
+dadesClient "n" -- "n" Xat
+
+HistorialComandes -- Comanda
+
+' Cuiner
+dadesCuiner -- PropostaPlat
+dadesCuiner "1" -- "0..*" Comanda
+dadesCuiner "n" -- "n" Plat
+dadesCuiner "n" -- "n" Xat
+
+' Comanda
+Comanda -- Pagament
+Comanda "1" -- "0..1" Entrega
+Comanda -- Plat
+
+' Plat / Menu / Ingredients
+PropostaPlat -- Plat
+Menu "n" o-- "n" Plat
+Plat "n" o-- "n" Ingredient
+
+' Xat
+Xat o-- Missatge
+
+' Repartidor / Entregues
+dadesRepartidor "1" -- "0..*" Entrega
+dadesRepartidor "1" -- "0..*" HistorialEntregues
+
+HistorialEntregues "1" -- "0..*" Entrega
+
+Entrega "1" -- "0..*" SeguimentUbicacio
+Entrega "1" -- "1" EstatEnviament
+
+@enduml
