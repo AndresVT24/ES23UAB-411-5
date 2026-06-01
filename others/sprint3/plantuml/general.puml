@@ -24,11 +24,11 @@ class GestorRepartidor
 class GestorUsuari
 class GestorUsuariNoRegistrat
 
-class InterficieClient
-class InterficieCuiner
-class InterficieRepartidor
-class InterficieUsuari
-class InterficieUsuariNoRegistrat
+interface InterficieClient
+interface InterficieCuiner
+interface InterficieRepartidor
+interface InterficieUsuari
+interface InterficieUsuariNoRegistrat
 
 class HistorialEntregues
 class SeguimentUbicacio
