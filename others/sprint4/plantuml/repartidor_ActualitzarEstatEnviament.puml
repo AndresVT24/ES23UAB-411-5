@@ -1,0 +1,32 @@
+@startuml
+title CU: Actualitzar Estat Enviament
+
+actor Repartidor
+
+boundary InterficieRepartidor
+control GestorRepartidor
+
+entity Entrega
+entity EstatEnviament
+entity SeguimentUbicacio
+
+Repartidor -> InterficieRepartidor : seleccionaActualitzarEstat(idEntrega, nouEstat)
+InterficieRepartidor -> GestorRepartidor : actualitzarEstatEnviament(idEntrega, nouEstat)
+
+GestorRepartidor -> Entrega : comprovarEntrega(idEntrega)
+Entrega --> GestorRepartidor : dadesEntrega
+
+alt No es pot actualitzar l'estat
+    GestorRepartidor --> InterficieRepartidor : errorActualitzacio
+
+else Es pot actualitzar l'estat
+    GestorRepartidor -> EstatEnviament : actualitzarEstat(nouEstat)
+    EstatEnviament --> GestorRepartidor : estatActualitzat
+
+    GestorRepartidor -> SeguimentUbicacio : actualitzarSeguiment(idEntrega)
+    SeguimentUbicacio --> GestorRepartidor : seguimentActualitzat
+
+    GestorRepartidor --> InterficieRepartidor : estatEnviamentActualitzat
+end
+
+@enduml
