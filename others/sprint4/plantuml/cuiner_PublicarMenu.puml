@@ -15,7 +15,11 @@ GC -> Menu : CrearMenu(Plats)
 Menu --> GC
 Cuiner -> IC : PublicarMenu()
 IC -> GC : PublicarMenu()
+alt Límit de menus superat
+GC -> IC : CancelarOperacio()
+else
 GC -> DadesCuiner : ActualitzarMenus()
 GC -> IC : Confirmacio()
+end
 
 @enduml
