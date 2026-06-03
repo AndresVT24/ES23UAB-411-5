@@ -23,12 +23,14 @@ class GestorCuiner
 class GestorRepartidor
 class GestorUsuari
 class GestorUsuariNoRegistrat
+class GestorComanda
 
 interface InterficieClient
 interface InterficieCuiner
 interface InterficieRepartidor
 interface InterficieUsuari
 interface InterficieUsuariNoRegistrat
+interface InterficieComanda
 
 class HistorialEntregues
 class SeguimentUbicacio
@@ -82,6 +84,7 @@ GestorCuiner -- dadesCuiner
 GestorRepartidor -- dadesRepartidor
 GestorUsuari -- dadesUsuari
 GestorUsuariNoRegistrat -- dadesUsuariNoRegistrat
+GestorComanda -- Comanda
 
 ' Interficie
 InterficieClient -- GestorClient
@@ -89,5 +92,6 @@ InterficieCuiner -- GestorCuiner
 InterficieRepartidor -- GestorRepartidor
 InterficieUsuari -- GestorUsuari
 InterficieUsuariNoRegistrat -- GestorUsuariNoRegistrat
+InterficieComanda -- GestorComanda
 
 @enduml
