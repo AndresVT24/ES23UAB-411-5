@@ -1,23 +1,30 @@
 @startuml
-title Consultar Entregues Disponibles
+title CU: Consultar Entregues Disponibles
 
 actor Repartidor
 
-boundary "Interficie Repartidor" as Interficie
-control "Gestor Repartidor" as Gestor
-entity "Entrega" as Entrega
-entity "DadesRepartidor" as DadesRepartidor
+boundary InterficieRepartidor
+control GestorRepartidor
 
-Repartidor -> Interficie : ConsultarEntreguesDisponibles()
-Interficie -> Gestor : ConsultarEntreguesDisponibles()
+entity Entrega
 
-Gestor -> DadesRepartidor : ConsultarDadesRepartidor()
-DadesRepartidor --> Gestor
+boundary InterficieComanda
+control GestorComanda
 
-Gestor -> Entrega : CercarEntreguesDisponibles()
-Entrega --> Gestor
+entity Comanda
 
-Gestor --> Interficie : LlistaEntreguesDisponibles()
-Interficie --> Repartidor : MostrarEntreguesDisponibles()
+Repartidor -> InterficieRepartidor : seleccionaConsultarEntreguesDisponibles()
+InterficieRepartidor -> GestorRepartidor : consultarEntreguesDisponibles()
+
+GestorRepartidor -> Entrega : buscarEntreguesDisponibles()
+Entrega --> Comanda : buscarDadesComanda()
+Comanda --> Entrega : informacioComanda
+Entrega --> GestorRepartidor : llistaEntregues
+
+alt No hi ha entregues disponibles
+    GestorRepartidor --> InterficieRepartidor : mostraMissatge("No hi ha entregues disponibles")
+else Hi ha entregues disponibles
+    GestorRepartidor --> InterficieRepartidor : mostraLlistatEntreguesDisponibles()
+end
 
 @enduml

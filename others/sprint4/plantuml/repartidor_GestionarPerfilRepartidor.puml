@@ -1,0 +1,47 @@
+@startuml
+title CU: Gestionar Perfil Repartidor
+
+actor Repartidor
+
+boundary InterficieRepartidor
+control GestorRepartidor
+
+control GestorUsuari
+
+entity dadesRepartidor
+entity dadesUsuari
+
+Repartidor -> InterficieRepartidor : seleccionaGestionarPerfil()
+InterficieRepartidor -> GestorRepartidor : consultarPerfilRepartidor(idRepartidor)
+
+GestorRepartidor -> dadesRepartidor : obtenirDadesRepartidor(idRepartidor)
+dadesRepartidor --> GestorRepartidor : dadesRepartidor
+
+GestorRepartidor -> GestorUsuari : consultarDadesUsuari(idUsuari)
+GestorUsuari -> dadesUsuari : obtenirDadesUsuari(idUsuari)
+dadesUsuari --> GestorUsuari : dadesUsuari
+GestorUsuari --> GestorRepartidor : dadesUsuari
+
+GestorRepartidor --> InterficieRepartidor : dadesPerfilRepartidor()
+
+Repartidor -> InterficieRepartidor : modificaDadesPerfil(novesDades)
+InterficieRepartidor -> GestorRepartidor : actualitzarPerfilRepartidor(novesDades)
+
+GestorRepartidor -> GestorRepartidor : validarDades(novesDades)
+
+alt Dades incorrectes o incompletes
+    GestorRepartidor --> InterficieRepartidor : errorValidacio
+
+else Dades correctes
+    GestorRepartidor -> dadesRepartidor : actualitzarDadesRepartidor(novesDadesRepartidor)
+    dadesRepartidor --> GestorRepartidor : dadesActualitzades
+
+    GestorRepartidor -> GestorUsuari : actualitzarDadesUsuari(novesDadesUsuari)
+    GestorUsuari -> dadesUsuari : actualitzarDadesUsuari(novesDadesUsuari)
+    dadesUsuari --> GestorUsuari : dadesActualitzades
+    GestorUsuari --> GestorRepartidor : dadesUsuariActualitzades
+
+    GestorRepartidor --> InterficieRepartidor : perfilActualitzat()
+end
+
+@enduml

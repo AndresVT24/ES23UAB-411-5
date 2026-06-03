@@ -3,53 +3,62 @@ title CU: Entrega
 
 actor Repartidor
 
-boundary "Interficie Repartidor" as Interficie
-control "Gestor Repartidor" as Gestor
-entity "Entrega" as Entrega
-entity "Comanda" as Comanda
-entity "SeguimentUbicacio" as SeguimentUbicacio
-entity "EstatEnviament" as EstatEnviament
+boundary InterficieRepartidor
+control GestorRepartidor
 
-Repartidor -> Interficie : ConsultarDadesEntrega()
-Interficie -> Gestor : ConsultarDadesEntrega()
+control GestorComanda
 
-Gestor -> Entrega : ObtenirDadesEntrega()
-Entrega --> Gestor : DadesEntrega()
+entity Entrega
+entity Comanda
+entity EstatEnviament
+entity SeguimentUbicacio
 
-Gestor -> Comanda : ConsultarDadesComanda()
-Comanda --> Gestor : DadesComanda()
+Repartidor -> InterficieRepartidor : seleccionaEntregaAssignada(idEntrega)
+InterficieRepartidor -> GestorRepartidor : iniciarEntrega(idEntrega)
 
-Gestor --> Interficie : MostrarDadesEntrega()
-Interficie --> Repartidor : DadesEntrega()
+GestorRepartidor -> Entrega : obtenirDadesEntrega(idEntrega)
+Entrega --> GestorRepartidor : dadesEntrega
 
-Repartidor -> Interficie : RecollirComanda()
-Interficie -> Gestor : RecollirComanda()
+GestorRepartidor -> GestorComanda : consultarEstatComanda(idComanda)
+GestorComanda -> Comanda : obtenirEstat(idComanda)
+Comanda --> GestorComanda : estatComanda
+GestorComanda --> GestorRepartidor : estatComanda
 
-Gestor -> EstatEnviament : ActualitzarEstat()
-EstatEnviament --> Gestor
+alt La comanda no està preparada
+    GestorRepartidor --> InterficieRepartidor : mostraMissatge("La comanda encara no està preparada")
 
-Gestor -> SeguimentUbicacio : IniciarSeguiment()
-SeguimentUbicacio --> Gestor
+else La comanda està preparada
+    Repartidor -> InterficieRepartidor : confirmaRecollida()
+    InterficieRepartidor -> GestorRepartidor : registrarRecollida(idEntrega)
 
-Repartidor -> Interficie : PortarComandaClient()
-Interficie -> Gestor : CompartirUbicacio()
+    GestorRepartidor -> EstatEnviament : actualitzarEstat("En camí")
+    EstatEnviament --> GestorRepartidor : estatActualitzat
 
-Gestor -> SeguimentUbicacio : ActualitzarUbicacio()
-SeguimentUbicacio --> Gestor
+    GestorRepartidor -> SeguimentUbicacio : iniciarSeguiment(idEntrega)
+    SeguimentUbicacio --> GestorRepartidor : seguimentIniciat
 
-Repartidor -> Interficie : ConfirmarEntrega()
-Interficie -> Gestor : ConfirmarEntrega()
+    GestorRepartidor --> InterficieRepartidor : mostraRutaEntrega()
 
-Gestor -> Entrega : FinalitzarEntrega()
-Entrega --> Gestor
+    Repartidor -> InterficieRepartidor : confirmaEntrega()
+    InterficieRepartidor -> GestorRepartidor : finalitzarEntrega(idEntrega)
 
-Gestor -> EstatEnviament : MarcarEntregada()
-EstatEnviament --> Gestor
+    GestorRepartidor -> EstatEnviament : actualitzarEstat("Entregada")
+    EstatEnviament --> GestorRepartidor : estatActualitzat
 
-Gestor -> Comanda : MarcarComandaEntregada()
-Comanda --> Gestor
+    GestorRepartidor -> Entrega : marcarComEntregada(idEntrega)
+    Entrega --> GestorRepartidor : entregaActualitzada
 
-Gestor --> Interficie : Confirmacio()
-Interficie --> Repartidor : Confirmacio()
+    GestorRepartidor -> GestorComanda : marcarComandaEntregada(idComanda)
+    GestorComanda -> Comanda : actualitzarEstat("Entregada")
+    Comanda --> GestorComanda : comandaActualitzada
+    GestorComanda --> GestorRepartidor : comandaEntregada
+
+    alt No es pot confirmar l'entrega
+        GestorRepartidor --> InterficieRepartidor : mostraMissatge("No s'ha pogut confirmar l'entrega")
+
+    else Entrega confirmada
+        GestorRepartidor --> InterficieRepartidor : mostraMissatge("Entrega confirmada correctament")
+    end
+end
 
 @enduml

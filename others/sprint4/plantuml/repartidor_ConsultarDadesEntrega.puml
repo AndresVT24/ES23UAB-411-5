@@ -3,25 +3,41 @@ title CU: Consultar Dades Entrega
 
 actor Repartidor
 
-boundary "Interficie Repartidor" as Interficie
-control "Gestor Repartidor" as Gestor
-entity "Entrega" as Entrega
-entity "Comanda" as Comanda
-entity "EstatEnviament" as EstatEnviament
+boundary InterficieRepartidor
+control GestorRepartidor
 
-Repartidor -> Interficie : SeleccionarEntrega()
-Interficie -> Gestor : ConsultarDadesEntrega()
+boundary InterficieComanda
+control GestorComanda
 
-Gestor -> Entrega : ConsultarDadesEntrega()
-Entrega --> Gestor : DadesEntrega()
+entity Entrega
+entity Comanda
+entity EstatEnviament
+entity SeguimentUbicacio
 
-Gestor -> Comanda : ConsultarDadesComanda()
-Comanda --> Gestor : DadesComanda()
+Repartidor -> InterficieRepartidor : seleccionaEntrega(idEntrega)
+InterficieRepartidor -> GestorRepartidor : consultarDadesEntrega(idEntrega)
 
-Gestor -> EstatEnviament : ConsultarEstatActual()
-EstatEnviament --> Gestor : EstatActual()
+GestorRepartidor -> Entrega : obtenirDadesEntrega(idEntrega)
+Entrega --> GestorRepartidor : dadesEntrega
 
-Gestor --> Interficie : DadesEntrega()
-Interficie --> Repartidor : MostrarDadesEntrega()
+alt L'entrega no es pot consultar
+    GestorRepartidor --> InterficieRepartidor : mostraMissatge("No es poden consultar les dades de l'entrega")
+
+else L'entrega es pot consultar
+    GestorRepartidor -> EstatEnviament : consultarEstat(idEntrega)
+    EstatEnviament --> GestorRepartidor : estatActual
+
+    GestorRepartidor -> SeguimentUbicacio : consultarUbicacio(idEntrega)
+    SeguimentUbicacio --> GestorRepartidor : ubicacioActual
+
+    GestorRepartidor -> InterficieComanda : demanarDadesComanda(idComanda)
+    InterficieComanda -> GestorComanda : consultarDadesComanda(idComanda)
+    GestorComanda -> Comanda : obtenirDadesComanda(idComanda)
+    Comanda --> GestorComanda : dadesComanda
+    GestorComanda --> InterficieComanda : dadesComanda
+    InterficieComanda --> GestorRepartidor : dadesComanda
+
+    GestorRepartidor --> InterficieRepartidor : mostrarDadesEntrega
+end
 
 @enduml

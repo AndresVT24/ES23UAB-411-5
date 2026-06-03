@@ -1,0 +1,40 @@
+@startuml
+title CU: Consultar Historial Entrega
+
+actor Repartidor
+
+boundary InterficieRepartidor
+control GestorRepartidor
+
+control GestorComanda
+
+entity dadesRepartidor
+entity HistorialEntregues
+entity Entrega
+entity Comanda
+entity EstatEnviament
+
+Repartidor -> InterficieRepartidor : seleccionaConsultarHistorialEntrega()
+InterficieRepartidor -> GestorRepartidor : consultarHistorialEntrega(idRepartidor)
+
+GestorRepartidor -> HistorialEntregues : obtenirHistorial(idRepartidor)
+HistorialEntregues --> GestorRepartidor : llistaEntregues
+
+alt No hi ha entregues al historial
+    GestorRepartidor --> InterficieRepartidor : mostraMissatge("No hi ha entregues al historial")
+
+else Hi ha entregues al historial
+    GestorRepartidor -> Entrega : obtenirDadesEntregues(llistaEntregues)
+    Entrega --> GestorRepartidor : dadesEntregues
+
+    GestorRepartidor -> EstatEnviament : consultarEstatEntregues(llistaEntregues)
+    EstatEnviament --> GestorRepartidor : estatsEntregues
+    GestorRepartidor -> GestorComanda : obtenirResumComandes(llistaEntregues)
+    GestorComanda -> Comanda : consultarComandes(llistaEntregues)
+    Comanda --> GestorComanda : resumComandes
+    GestorComanda --> GestorRepartidor : resumComandes
+
+    GestorRepartidor --> InterficieRepartidor : mostraHistorialEntregues()
+end
+
+@enduml
