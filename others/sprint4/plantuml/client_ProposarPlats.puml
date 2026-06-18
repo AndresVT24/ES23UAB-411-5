@@ -1,0 +1,40 @@
+@startuml
+
+actor Client
+
+boundary "InterficieClient" as UI
+control "GestorProposta" as CP
+entity "PropostaPlat" as PP
+entity "dadesClient" as PF
+entity "dadesCuiner" as MP
+
+Client -> UI : Proposar plat()
+
+UI -> CP : mostrarFormulariProposta()
+
+Client -> UI : Introduir dades proposta()
+
+UI -> CP : enviarProposta(dadesPlat, preferencies, cuiner)
+
+alt Dades incompletes
+
+    CP --> UI : mostrarErrorDadesIncompletes()
+
+else Dades correctes
+
+    CP -> PF : consultarRestriccionsClient()
+    PF --> CP : restriccionsAlimentaries
+
+    CP -> PP : crearProposta(dadesPlat, preferencies, restriccionsAlimentaries)
+    PP --> CP : propostaCreada
+
+    CP -> MP : enviarPropostaCuiner(p)
+    MP --> CP : propostaEnviada
+
+    CP --> UI : mostrarConfirmacioPropostaEnviada()
+
+end
+
+CP --> UI : Mostrar resultat
+
+@enduml

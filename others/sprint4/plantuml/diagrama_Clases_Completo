@@ -1,0 +1,343 @@
+@startuml
+
+class dadesUsuariNoRegistrat {
+
+* idioma : String
+
+- canviarIdioma(nouIdioma : String) : void
+- registrar(nom : String, email : String, contrasenya : String) : dadesUsuari
+- mirarPlats() : List<Plat>
+  }
+
+class dadesUsuari {
+
+* idUsuari : int
+* idPerfils : int
+* nomUsuari : string
+* plaMensualActivat : bool
+
+- getDadesPerfil()
+- modificarPerfil()
+- crearPerfil()
+- donarseDeBaixa()
+  }
+
+class dadesClient {
+
+* comandesActives : Integer
+* plaMensualActiu : Boolean
+
+- ferComanda(comanda : Comanda) : void
+- consultarHistorial() : HistorialComandes
+- valorarComanda(comanda : Comanda) : void
+  }
+
+class dadesCuiner {
+
+* idCuiner : int
+* dadesHorari : string
+* disponibilitat : bool
+* valoracioMitjana : float
+* plats : Plat
+* Menus : Menu
+
+- indicarHorari()
+- guardarCanvis()
+- rebutjarProposta()
+- acceptarProposta()
+- consultarPropostes()
+- crearPlat()
+- crearMenu()
+  }
+
+class dadesRepartidor {
+
+* disponible : Boolean
+* ubicacioActual : String
+* compteBancari : String
+
+- acceptarEntrega(entrega : Entrega) : void
+- actualitzarUbicacio(ubicacio : String) : void
+- finalitzarEntrega(entrega : Entrega) : void
+  }
+
+class HistorialComandes {
+
+* idHistorial : String
+
+- afegirComanda(comanda : Comanda) : void
+- llistarComandes() : List<Comanda>
+  }
+
+class ProgramaPunts {
+
+* puntsActuals : Integer
+* subscripcioActiva : Boolean
+
+- acumularPunts(comanda : Comanda) : void
+- bescanviarPunts(punts : Integer) : Double
+  }
+
+class Comanda {
+
+* idComanda : String
+* dataCreacio : DateTime
+* estat : String
+* costTotal : Double
+* opcioEntrega : String
+
+- calcularCostTotal() : Double
+- tancarComanda() : void
+- cancelarComanda() : void
+  }
+
+class PropostaPlat {
+
+* idProposta : String
+* descripcio : String
+* estat : String
+
+- acceptar(cuiner : dadesCuiner) : void
+- convertirEnComanda() : Comanda
+  }
+
+class Menu {
+
+* idMenu : String
+* nom : String
+* preu : Double
+* disponible : Boolean
+
+- afegirPlat(plat : Plat) : void
+- calcularPreu() : Double
+  }
+
+class Xat {
+
+* idXat : String
+* privat : Boolean
+* actiu : Boolean
+
+- enviarMissatge(text : String) : Missatge
+- tancarXat() : void
+  }
+
+class Pagament {
+
+* idPagament : String
+* metode : String
+* importTotal : Double
+* estat : String
+
+- confirmarPagament() : Boolean
+- aplicarDescompte(punts : Integer) : void
+  }
+
+class Entrega {
+
+* idEntrega : String
+* opcioEntrega : String
+* cost : Double
+* estat : String
+
+- iniciarEntrega() : void
+- actualitzarEstat(estat : String) : void
+- finalitzarEntrega() : void
+  }
+
+class Plat {
+
+* idPlat : String
+* nom : String
+* preu : Double
+* disponible : Boolean
+
+- consultarIngredients() : List<Ingredient>
+- eliminarIngredientOpcional(ingredient : Ingredient) : void
+  }
+
+class Missatge {
+
+* idMissatge : String
+* text : String
+* dataHora : DateTime
+
+- marcarComLlegit() : void
+  }
+
+class Ingredient {
+
+* nom : String
+* opcional : Boolean
+* allergen : Boolean
+
+- esOpcional() : Boolean
+- esAllergen() : Boolean
+  }
+
+class GestorClient {
+
+* crearComanda(client : dadesClient) : Comanda
+* consultarHistorial(client : dadesClient) : HistorialComandes
+* valorarComanda(client : dadesClient, comanda : Comanda) : void
+  }
+
+class GestorCuiner {
+
+* guardarCanvis()
+* actualitzarHorari()
+* confirmacio()
+* notificarPropostaRebuda()
+* cancelarOperacio()
+* actualitzarPlats()
+* actualitzarMenus()
+  }
+
+class GestorRepartidor {
+
+* consultarEntreguesDisponibles() : List<Entrega>
+* assignarEntrega(repartidor : dadesRepartidor, entrega : Entrega) : void
+* actualitzarEstat(entrega : Entrega) : void
+  }
+
+class GestorUsuari {
+
+* confirmarCanvis()
+* guardarCanvis()
+  }
+
+class GestorUsuariNoRegistrat {
+
+* actualitzarIdioma()
+  }
+
+class GestorComanda {
+
+* crearComanda(client : dadesClient) : Comanda
+* calcularCost(comanda : Comanda) : Double
+* processarPagament(comanda : Comanda) : Boolean
+  }
+
+interface InterficieClient {
+
+* mostrarCanvis()
+  }
+
+interface InterficieCuiner {
+
+* mostrarConfirmacio()
+* mostrarPropostaRebuda()
+  }
+
+interface InterficieRepartidor {
+
+* mostrarEntregues() : void
+* actualitzarEstatEntrega() : void
+* consultarHistorial() : void
+  }
+
+interface InterficieUsuari {
+
+* mostrarConfirmacio()
+* notificarPerfilCreat()
+  }
+
+interface InterficieUsuariNoRegistrat {
+
+* mostrarMenus() : void
+* registrarUsuari() : void
+  }
+
+interface InterficieComanda {
+
+* mostrarDetallComanda() : void
+* pagarComanda() : void
+* seguirEntrega() : void
+  }
+
+class HistorialEntregues {
+
+* idHistorial : String
+
+- afegirEntrega(entrega : Entrega) : void
+- llistarEntregues() : List<Entrega>
+  }
+
+class SeguimentUbicacio {
+
+* latitud : Double
+* longitud : Double
+* moment : DateTime
+
+- registrarPosicio() : void
+- mostrarEnMapa() : void
+  }
+
+class EstatEnviament {
+
+* estatActual : String
+* dataActualitzacio : DateTime
+
+- actualitzarEstat(estat : String) : void
+- consultarEstat() : String
+  }
+
+' Herencia de usuarios
+dadesUsuariNoRegistrat <|-- dadesUsuari
+dadesUsuari <|-- dadesClient
+dadesUsuari <|-- dadesCuiner
+dadesUsuari <|-- dadesRepartidor
+
+' Cliente
+dadesClient -- HistorialComandes
+dadesClient -- ProgramaPunts
+dadesClient -- PropostaPlat
+dadesClient "1" -- "0..*" Comanda
+dadesClient "n" -- "n" Xat
+
+HistorialComandes -- Comanda
+
+' Cuiner
+dadesCuiner -- PropostaPlat
+dadesCuiner "1" -- "0..*" Comanda
+dadesCuiner "n" -- "n" Plat
+dadesCuiner "n" -- "n" Xat
+
+' Comanda
+Comanda -- Pagament
+Comanda "1" -- "0..1" Entrega
+Comanda -- Plat
+
+' Plat / Menu / Ingredients
+PropostaPlat -- Plat
+Menu "n" o-- "n" Plat
+Plat "n" o-- "n" Ingredient
+
+' Xat
+Xat o-- Missatge
+
+' Repartidor / Entregues
+dadesRepartidor "1" -- "0..*" HistorialEntregues
+
+HistorialEntregues "1" -- "0..*" Entrega
+
+Entrega "1" -- "0..*" SeguimentUbicacio
+Entrega "1" -- "1" EstatEnviament
+
+' Gestor
+GestorClient -- dadesClient
+GestorCuiner -- dadesCuiner
+GestorRepartidor -- dadesRepartidor
+GestorUsuari -- dadesUsuari
+GestorUsuariNoRegistrat -- dadesUsuariNoRegistrat
+GestorComanda -- Comanda
+
+' Interficie
+InterficieClient -- GestorClient
+InterficieCuiner -- GestorCuiner
+InterficieRepartidor -- GestorRepartidor
+InterficieUsuari -- GestorUsuari
+InterficieUsuariNoRegistrat -- GestorUsuariNoRegistrat
+InterficieComanda -- GestorComanda
+
+@enduml

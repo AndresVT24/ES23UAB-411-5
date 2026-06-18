@@ -1,0 +1,39 @@
+@startuml
+actor Cuiner
+
+boundary "InterficieCuiner" as IC
+control "GestorCuiner" as GC
+control "GestorProposta" as GP
+entity "PropostaPlat" as PP
+
+control "GestorClient" as GCLI
+boundary "InterficieClient" as ICLI
+entity Xat
+
+GC -> IC : notificarPropostaRebuda()
+
+Cuiner -> IC : consultarPropostes()
+IC -> GC : consultarPropostes()
+
+alt Cuiner rebutja proposta:
+
+    Cuiner -> IC : rebutjarProposta()
+    IC -> GC : rebutjarProposta()
+    GC -> GP : rebutjarProposta()
+    GP -> PP : actualizarEstat(rebutjada)
+    PP -> PP : eliminarProposta()
+    PP --> GP : estatActualitzat
+
+else Cuiner Accepta proposta
+
+    Cuiner -> IC : acceptarProposta()
+    IC -> GC : acceptarProposta()
+    GC -> GP : acceptarProposta()
+    GP -> PP : actualizarEstat(acceptada)
+    PP --> GP : estatActualitzat
+    GP -> Xat : obrirXat()
+end
+
+GP -> GCLI : notificarEstatProposta(estat)
+GCLI -> ICLI : notificarEstatProposta(estat)
+@enduml
