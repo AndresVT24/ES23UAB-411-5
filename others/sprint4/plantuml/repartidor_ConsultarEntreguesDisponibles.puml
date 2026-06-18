@@ -8,7 +8,6 @@ control GestorRepartidor
 
 entity Entrega
 
-boundary InterficieComanda
 control GestorComanda
 
 entity Comanda
